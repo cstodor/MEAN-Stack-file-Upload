@@ -26,6 +26,7 @@
     float: left;
     background: #fafafa;
     text-align: center;
+    overflow-y: scroll;
 }
 #media-library img {
     max-width: 100px;
@@ -42,4 +43,7 @@
     border: 1px solid #eee;
     cursor: pointer;
     padding: 1rem;
+}
+img.active {
+    border: 2px solid #66dd66;
 }

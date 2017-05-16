@@ -13,7 +13,7 @@
     <ul *ngIf="mediaFiles">
       <p>Media Library</p>
       <li *ngFor="let file of mediaFiles" #elem>
-        <img [src]="file?.filePath" [alt]="file?.imageAlt">
+        <img [src]="file?.filePath" [alt]="file?.imageAlt" (click)="selectSectionImage(img)" class="media-file" #img>
         <div class="file-details" *ngIf="isShowMediaFileDetails">
           <div>
             <label>Image Title: </label>
@@ -29,10 +29,10 @@
         </div>
         <div>
           <button (click)="toggleMediaFileDetails(elem)">Edit</button>
-          <button (click)="deleteMediaFile()">Delete</button>
+          <button (click)="deleteMediaFile(elem)">Delete</button>
         </div>
       </li>
     </ul>
-    <button>Set Section Image</button>
+    <button (click)="setSectionImage()">Set Section Image</button>
   </div>
 </div>

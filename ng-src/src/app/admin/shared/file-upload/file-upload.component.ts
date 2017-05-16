@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { AdminService } from "../../admin.service";
 
@@ -12,12 +14,25 @@ export class FileUploadComponent implements OnInit {
 
   isShowUploadModal: boolean;
   isShowMediaFileDetails = false;
+  selectedImage: any;
   mediaFiles: any;
   errorMessage: string;
+  sub: Subscription;
+  _secId: string;
 
-  constructor(private adminService: AdminService) { }
+  constructor(
+    private adminService: AdminService,
+    private _route: ActivatedRoute,
+    private _router: Router
+  ) { }
 
   ngOnInit() {
+    this.sub = this._route.params.subscribe(
+      params => {
+        let id = params['_id'];
+        this._secId = id;
+      });
+
     this.adminService.getAllMediaFiles().subscribe(
       media => {
         this.mediaFiles = media.medias;
@@ -48,13 +63,59 @@ export class FileUploadComponent implements OnInit {
     }
   }
 
+  selectSectionImage(img) {
+    let selImage = img;
+
+    let images = document.getElementsByClassName('media-file');
+
+    for (let i = 0; i < images.length; i++) {
+      let imgCL = images[i];
+      imgCL.classList.remove('active');
+    }
+
+    if (selImage.className === 'media-file') {
+      selImage.className = 'media-file active'
+    } else {
+      selImage.className = 'media-file'
+    }
+
+    let str = selImage.src;
+    let imageName = str.substr(str.indexOf("uploads/") + 8);
+
+    this.selectedImage = {
+      secImage: 'assets/uploads/' + imageName
+    }
+    this.selectedImage = JSON.stringify(this.selectedImage);
+
+  }
+
+  setSectionImage() {
+
+    if (this.selectedImage) {
+      this.adminService.updateSection(this._secId, this.selectedImage).subscribe(
+        data => {
+          console.log(data);
+          if (data.success) {
+            console.log('Section Image Set!');
+            this.closeModal();
+          }
+        },
+        err => {
+          console.log(err);
+          return false;
+        }
+
+      );
+    }
+  }
 
   toggleMediaFileDetails(elem) {
     this.isShowMediaFileDetails = !this.isShowMediaFileDetails;
   }
 
-  deleteMediaFile() {
-
+  deleteMediaFile(elem) {
+    let deletedElem = elem;
+    console.log(deletedElem);
   }
 
   // Close Upload Modal
