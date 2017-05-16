@@ -1,0 +1,26 @@
+<header>
+  <h1>ADMIN</h1>
+  <button [routerLink]="['/']" class="admin-link">< Back To Site</button>
+</header>
+
+<div class="section-details" *ngIf="_section">
+  <div id="breadcrumb"><a [routerLink]="['/admin']">Admin</a> / {{ _section.secTitle }}</div>
+  <form [formGroup]="sectionDetailsForm" (ngSubmit)="onSectionUpdate()">
+    <div class="editor-container">
+      <input type="text" formControlName="secTitle"><br/>
+      <textarea id="editor" type="hidden" formControlName="secContent"></textarea><br/>
+    </div>
+
+    <div class="sidebar">
+      <img [src]="_section.secImage" alt="" title="">
+      <span (click)="removeImage()" *ngIf="_section.secImage !== 'assets/img/default.jpg'">Remove Image</span>
+      <span (click)="uploadImageModal()" *ngIf="_section.secImage === '' || _section.secImage === 'assets/img/default.jpg'">Upload Image</span>
+      <br>
+      <button type="submit">Update</button>
+    </div>
+
+    <div class="upload-modal" *ngIf="this.adminService.isShowUploadModal === true">
+      <app-file-upload></app-file-upload>
+    </div>
+  </form>
+</div>

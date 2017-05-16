@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    margin: 0;
+}
+header {
+    text-align: right;
+    display: block;
+    border-bottom: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+header h1 {
+    float: left;
+    margin: 0;
+}

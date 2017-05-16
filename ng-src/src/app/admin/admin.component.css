@@ -1,0 +1,14 @@
+.section {
+    border: 1px solid #ddd;
+    padding: 2rem;
+    margin: 1rem;
+    display: inline-block;
+}
+button {
+    background: green;
+    color: #fff;
+    border: 0;
+    margin: 1rem 0 0 0;
+    padding: 1rem 2rem;
+    text-transform: uppercase
+}

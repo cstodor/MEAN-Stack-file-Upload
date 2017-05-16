@@ -1,0 +1,38 @@
+<div class="modal-container">
+  <span class="close" (click)="closeModal()">X</span>
+  <!--Upload Files-->
+  <div id="upload-container">
+    <p>Drop Your Files Here</p>
+    <p>or</p>
+    <form>
+      <input type="file" placeholder="Select Files" name="imageFile" (change)="fileChange($event)" accept="image/*" #inputFile>
+    </form>
+  </div>
+  <!--Media Library-->
+  <div id="media-library">
+    <ul *ngIf="mediaFiles">
+      <p>Media Library</p>
+      <li *ngFor="let file of mediaFiles" #elem>
+        <img [src]="file?.filePath" [alt]="file?.imageAlt">
+        <div class="file-details" *ngIf="isShowMediaFileDetails">
+          <div>
+            <label>Image Title: </label>
+            <input type="text" [value]="file.imageTitle">
+          </div>
+          <div>
+            <label>Image Alt: </label>
+            <input type="text" [value]="file.imageAlt">
+          </div>
+          <div>File Size: {{ file.fileSize / 1024 }}KB</div>
+          <!--{{file.imageDimension}}-->
+          <div>Upload Date: {{ file.fileUploadDate | date }}</div>
+        </div>
+        <div>
+          <button (click)="toggleMediaFileDetails(elem)">Edit</button>
+          <button (click)="deleteMediaFile()">Delete</button>
+        </div>
+      </li>
+    </ul>
+    <button>Set Section Image</button>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+.modal-container {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 5%;
+    right: 5%;
+    bottom: 5%;
+    left: 5%;
+    padding: 3rem;
+    background: #fff;
+    border: 1px solid #eee;
+}
+#upload-container {
+    width: 35%;
+    height: 100%;
+    padding: 1%;
+    float: left;
+    background: #eee;
+    border: 1px dashed #aaa;
+    text-align: center;
+}
+#media-library {
+    width: 60%;
+    height: 100%;
+    padding: 1%;
+    float: left;
+    background: #fafafa;
+    text-align: center;
+}
+#media-library img {
+    max-width: 100px;
+}
+#media-library li {
+    list-style: none;
+    display: inline-block;
+    margin: 1rem;
+}
+.close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 1px solid #eee;
+    cursor: pointer;
+    padding: 1rem;
+}

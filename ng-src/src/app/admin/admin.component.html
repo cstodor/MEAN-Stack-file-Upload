@@ -1,0 +1,15 @@
+<header>
+  <h1>ADMIN</h1>
+  <button [routerLink]="['/']" class="admin-link">< Back To Site</button>
+</header>
+
+<div *ngIf="_sections">
+  <div *ngFor="let sec of _sections" class="section">
+    <div class="thumbnbail">
+      <img [src]="sec.secImage" alt="" title="">
+    </div>
+    <div>ID: {{ sec._id }}</div>
+    <h2>{{ sec.secTitle }}</h2>
+    <button [routerLink]="[sec._id]">Edit</button>
+  </div>
+</div>

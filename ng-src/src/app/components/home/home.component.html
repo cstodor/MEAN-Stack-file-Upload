@@ -1,0 +1,12 @@
+<header>
+  <button [routerLink]="['/admin']" class="admin-link">Admin Area ></button>
+</header>
+<div *ngIf="sections" id="sections">
+  <div *ngFor="let sec of sections" class="section">
+    <div class="thumbnail">
+      <img [src]="sec.secImage" alt="" title="">
+    </div>
+    <h1>{{ sec.secTitle }}</h1>
+    <div>{{ sec.secContent }}</div>
+  </div>
+</div>

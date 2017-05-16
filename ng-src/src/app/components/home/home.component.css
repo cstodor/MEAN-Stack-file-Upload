@@ -1,0 +1,17 @@
+#sections{
+    max-width: 1200px;
+    margin: auto;
+}
+.section {
+    border: 1px solid #ddd;
+    clear: both;
+    overflow: auto;
+    margin: 1rem 0;
+}
+.thumbnail {
+    float: left;
+    margin-right: 2em;
+}
+.thumbnail img {
+    max-width: 180px;
+}
