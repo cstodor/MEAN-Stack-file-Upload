@@ -104,9 +104,6 @@ export class AdminDetailsComponent implements OnInit, OnDestroy {
       data => {
         if (data.success) {
           console.log('Image Removed!');
-          // this.alertService.success('Remove image success', 'Section remove image',
-          //   { buttons: [{ title: 'OK', code: 'OK' }], timeout: 5000 });
-          // this._section.section.secImg = '';
         }
       },
       err => {
