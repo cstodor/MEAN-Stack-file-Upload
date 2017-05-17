@@ -40,11 +40,10 @@ routerSections.put('/section/:id', (req, res, next) => {
         } else {
             result.save((err, result) => {
                 if (err) {
-                    return res.status(500).json({
-                        success: false, msg: 'An Error Occurred!' + err
-                    });
+                    res.status(500).json({ success: false, msg: 'An Error Occurred!' + err });
+                } else {
+                    res.status(200).json({ success: true, msg: 'Secion Updated. ' + result });
                 }
-                res.status(200).json({ succes: true, msg: 'Secion Updated. ' + result });
             });
         }
     });
