@@ -31,6 +31,10 @@ app.use(cors());
 app.use('/v1/sections', sectionRoutes);
 app.use('/v1/media', mediaRoutes);
 
-app.get('/', (req, res) => {
-    res.send('Error: Cannot find public files.');
+// Set public folder
+app.use(express.static(path.join(__dirname, 'ng-src/dist')));
+
+// Every other request will load app
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'ng-src/dist/index.html'));
 });
