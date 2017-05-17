@@ -110,18 +110,24 @@ export class FileUploadComponent implements OnInit {
   }
 
   deleteMediaFile(file) {
-    console.log(file);
-    this.adminService.deleteMediaFile(file).subscribe(
-      data => {
-        if (data.success) {
-          console.log('File Deleted!');
+    let deleteConfirm = confirm('You are about to permanently delete this file. \nPress Cancel to stop, OK to delete.');
+    deleteConfirm;
+    if (deleteConfirm === true) {
+      console.log(file);
+      this.adminService.deleteMediaFile(file).subscribe(
+        data => {
+          if (data.success) {
+            console.log('File Deleted!');
+          }
+        },
+        err => {
+          console.log(err);
+          return false;
         }
-      },
-      err => {
-        console.log(err);
-        return false;
-      }
-    )
+      )
+    } else {
+      console.log('file not deleted');
+    }
   }
 
   // Close Upload Modal
