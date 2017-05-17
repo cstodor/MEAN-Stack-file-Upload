@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Do we need this import?
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Services
-import { AdminService } from "./admin.service";
+import { AdminService } from './admin.service';
 // Modules
 import { AdminRoutingModule } from './admin-routing.module';
 // Components
