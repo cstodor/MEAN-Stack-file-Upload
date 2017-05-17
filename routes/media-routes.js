@@ -1,10 +1,11 @@
 const express = require('express');
-const fs = require('fs');
 const routerMedia = express.Router();
 const multer = require('multer');
+const fs = require('fs');
 const Media = require('../models/media');
 
-var storage = multer.diskStorage({
+// configuring File Upload
+const storage = multer.diskStorage({
     // set uploads folder
     destination: (req, file, cb) => {
         cb(null, 'ng-src/src/assets/uploads');
@@ -15,7 +16,7 @@ var storage = multer.diskStorage({
     }
 });
 
-var upload = multer({ storage: storage }).single('file');
+const upload = multer({ storage: storage })
 
 // Get All Media Files
 routerMedia.get('/', (req, res, next) => {
@@ -43,8 +44,9 @@ routerMedia.get('/:id', (req, res, next) => {
 });
 
 // Add New Media File
-routerMedia.post('/upload', upload, (req, res, next) => {
-
+routerMedia.post('/upload', upload.single('file'), (req, res, next) => {
+    console.log('post file with content:');
+    console.log(req.file);
     // Initializing Media Info
     let newFile = new Media({
         filePath: 'assets\/uploads\/' + req.file.filename,
@@ -56,30 +58,13 @@ routerMedia.post('/upload', upload, (req, res, next) => {
         // imageDimension: fileDimension,
         fileUploadDate: Date.now()
     });
-
     // Add File to DB
     Media.addNewFile(newFile, (err, result) => {
         if (err) {
-            res.json({ success: false, msg: 'Image Not added to DB. Error: ' + err });
+            res.status(500).json({ success: false, msg: 'Image Not added to DB. Error: ' + err });
         } else {
-            res.json({ success: true, msg: 'Image Added to DB! ' + result });
+            res.status(200).json({ success: true, msg: 'Image Added to DB! ' + result });
         }
-    });
-
-    // Upload file to uploads folder
-    upload(req, res, (err) => {
-        if (err) {
-            // Error occurred when uploading
-            res.json({
-                success: false,
-                message: 'An error occurred when uploading: ' + err
-            });
-        }
-        // Upload Successful
-        res.json({
-            success: true,
-            message: 'Image Uploaded!'
-        });
     });
 });
 
@@ -99,7 +84,23 @@ routerMedia.put('/:id', (req, res, next) => {
                         success: false, msg: 'An Error Occurred!' + err
                     });
                 }
-                res.status(200).json({ succes: true, msg: 'Media Updated. ' + result });
+                res.status(200).json({ success: true, msg: 'Media Updated. ' + result });
+            });
+        }
+    });
+});
+
+// Delete Media File
+routerMedia.delete('/:id', (req, res, next) => {
+    const fileId = req.params.id;
+    const filePath = req.headers.accept;
+    Media.remove({ _id: fileId }, (err, item) => {
+        if (err) {
+            console.log(err);
+            res.status(500).json({ success: false, msg: 'File Not Removed From Database. Error: ' + err });
+        } else {
+            fs.unlink('ng-src\/src\/' + filePath, () => {
+                res.status(200).json({ success: true, msg: 'File Removed From Database. ' + item });
             });
         }
     });
