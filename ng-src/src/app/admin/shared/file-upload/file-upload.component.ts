@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { AdminService } from "../../admin.service";
+import { AdminService } from '../../admin.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -10,7 +10,7 @@ import { AdminService } from "../../admin.service";
   styleUrls: ['./file-upload.component.css']
 })
 export class FileUploadComponent implements OnInit {
-  @ViewChild("fileInput") inputFile;
+  @ViewChild('fileInput') inputFile;
 
   isShowUploadModal: boolean;
   isShowMediaFileDetails = false;
@@ -47,12 +47,12 @@ export class FileUploadComponent implements OnInit {
       let file: File = fileList[0];
       let formData: FormData = new FormData();
 
-      formData.append('imageFile', file, file.name);
+      formData.append('file', file);
 
       this.adminService.uploadMediaFile(formData).subscribe(
         data => {
           if (data.success) {
-            console.log('Success!!!');
+            console.log('File Uploaded!');
           }
         },
         err => {
@@ -69,8 +69,7 @@ export class FileUploadComponent implements OnInit {
     let images = document.getElementsByClassName('media-file');
 
     for (let i = 0; i < images.length; i++) {
-      let imgCL = images[i];
-      imgCL.classList.remove('active');
+      let imgCL = images[i].classList.remove('active');
     }
 
     if (selImage.className === 'media-file') {
@@ -80,32 +79,29 @@ export class FileUploadComponent implements OnInit {
     }
 
     let str = selImage.src;
-    let imageName = str.substr(str.indexOf("uploads/") + 8);
+    let imageName = str.substr(str.indexOf('uploads/') + 8);
 
     this.selectedImage = {
       secImage: 'assets/uploads/' + imageName
     }
     this.selectedImage = JSON.stringify(this.selectedImage);
-
+    console.log('Image Seleted!');
   }
 
   setSectionImage() {
-
     if (this.selectedImage) {
       this.adminService.updateSection(this._secId, this.selectedImage).subscribe(
         data => {
-          console.log(data);
           if (data.success) {
             console.log('Section Image Set!');
-            this.closeModal();
+            this.closeMediaModal();
           }
         },
         err => {
           console.log(err);
           return false;
         }
-
-      );
+      )
     }
   }
 
@@ -113,14 +109,24 @@ export class FileUploadComponent implements OnInit {
     this.isShowMediaFileDetails = !this.isShowMediaFileDetails;
   }
 
-  deleteMediaFile(elem) {
-    let deletedElem = elem;
-    console.log(deletedElem);
+  deleteMediaFile(file) {
+    console.log(file);
+    this.adminService.deleteMediaFile(file).subscribe(
+      data => {
+        if (data.success) {
+          console.log('File Deleted!');
+        }
+      },
+      err => {
+        console.log(err);
+        return false;
+      }
+    )
   }
 
   // Close Upload Modal
-  closeModal() {
-    console.log('Close modal');
+  closeMediaModal() {
+    console.log('Close Media Modal');
     this.adminService.isShowUploadModal = false;
     this.isShowUploadModal = this.adminService.isShowUploadModal;
   }

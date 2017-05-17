@@ -1,5 +1,5 @@
 <div class="modal-container">
-  <span class="close" (click)="closeModal()">X</span>
+  <span class="close" (click)="closeMediaModal()">X</span>
   <!--Upload Files-->
   <div id="upload-container">
     <p>Drop Your Files Here</p>
@@ -28,8 +28,8 @@
           <div>Upload Date: {{ file.fileUploadDate | date }}</div>
         </div>
         <div>
-          <button (click)="toggleMediaFileDetails(elem)">Edit</button>
-          <button (click)="deleteMediaFile(elem)">Delete</button>
+          <button (click)="toggleMediaFileDetails(file)">Edit</button>
+          <button (click)="deleteMediaFile(file)">Delete</button>
         </div>
       </li>
     </ul>
