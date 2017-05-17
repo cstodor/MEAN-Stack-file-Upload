@@ -29,6 +29,14 @@ button {
     width: 20%;
     float: left;
 }
+img.section-image {
+    width: 100%;
+}
+.remove-image,
+.upload-image,
+.update-section {
+    cursor: pointer;
+}
 .upload-modal {
     position: absolute;
     width: 100%;

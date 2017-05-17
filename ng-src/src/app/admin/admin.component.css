@@ -12,3 +12,7 @@ button {
     padding: 1rem 2rem;
     text-transform: uppercase
 }
+.thumbnbail img {
+    width: 100%;
+    max-width: 269px;
+}

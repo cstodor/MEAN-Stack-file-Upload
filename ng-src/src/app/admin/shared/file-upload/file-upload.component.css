@@ -36,6 +36,9 @@
     display: inline-block;
     margin: 1rem;
 }
+.media-file {
+    cursor: pointer;
+}
 .close {
     position: absolute;
     top: 0;
