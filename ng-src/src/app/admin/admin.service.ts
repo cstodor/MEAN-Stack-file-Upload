@@ -13,13 +13,13 @@ export class AdminService {
 
   constructor(private http: Http) { }
 
-  // Get Single Section By ID
+  // Get All Sections
   getAllSections(): Observable<any> {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get('http://localhost:4000/v1/sections/', { headers: headers })
       .map(res => res.json())
-      // .do(data => console.log('Section By ID: ' + JSON.stringify(data)));
+    // .do(data => console.log('Section By ID: ' + JSON.stringify(data)));
   }
   // Get All Uploads
   getAllMediaFiles(): Observable<any> {
@@ -27,7 +27,7 @@ export class AdminService {
     headers.append('Content-Type', 'application/json');
     return this.http.get('http://localhost:4000/v1/media/', { headers: headers })
       .map(res => res.json())
-      // .do(data => console.log('Section By ID: ' + JSON.stringify(data)));
+    // .do(data => console.log('Section By ID: ' + JSON.stringify(data)));
   }
 
   // Get Single Section By ID
@@ -36,7 +36,7 @@ export class AdminService {
     headers.append('Content-Type', 'application/json');
     return this.http.get('http://localhost:4000/v1/sections/section/' + id, { headers: headers })
       .map(res => res.json())
-      // .do(data => console.log('Section By ID: ' + JSON.stringify(data)));
+    // .do(data => console.log('Section By ID: ' + JSON.stringify(data)));
   }
   // Get Single Media File By ID
   getMediaFileById(id: String): Observable<any> {
@@ -44,36 +44,43 @@ export class AdminService {
     headers.append('Content-Type', 'application/json');
     return this.http.get('http://localhost:4000/v1/media/' + id, { headers: headers })
       .map(res => res.json())
-      // .do(data => console.log('Section By ID: ' + JSON.stringify(data)));
+    // .do(data => console.log('Section By ID: ' + JSON.stringify(data)));
   }
 
   // Update Existing Section
-  updateSection(id: String, result): Observable<any> {
+  updateSection(id, result): Observable<any> {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.put('http://localhost:4000/v1/sections/section/' + id, result, { headers: headers })
       .map(res => res.json())
-      // .do(data => console.log('Section By ID: ' + JSON.stringify(data)));
+    // .do(data => console.log('Section By ID: ' + JSON.stringify(data)));
   }
-  // Update Media File
+  // Update Existing Media File
   updateMediaFile(id: String, result): Observable<any> {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.put('http://localhost:4000/v1/media/' + id, result, { headers: headers })
       .map(res => res.json())
-      // .do(data => console.log('Section By ID: ' + JSON.stringify(data)));
+    // .do(data => console.log('Section By ID: ' + JSON.stringify(data)));
   }
 
-  // Upload Media File
+  // Add Media File
   uploadMediaFile(file): Observable<any> {
     let headers = new Headers();
     // headers.append('Content-Type', 'multipart/form-data');
+    // headers.append('Content-Type', 'application/x-www-form-urlencoded');
     // headers.append('Content-Type', 'application/json');
-    headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    //headers.append('Accept', 'application/json');
     return this.http.post('http://localhost:4000/v1/media/upload/', file, { headers: headers })
       .map(res => res.json())
-      // .do(data => console.log('Upload File: ' + JSON.stringify(data)));
+    // .do(data => console.log('Upload File: ' + JSON.stringify(data)));
   }
 
+  // Delete Media File
+  deleteMediaFile(file): Observable<any> {
+    let headers = new Headers();
+    headers.append('Accept', file.filePath)
+    return this.http.delete('http://localhost:4000/v1/media/' + file._id, { headers: headers })
+      .map(res => res.json())
+    // .do(data => console.log('Upload File: ' + JSON.stringify(data)));
+  }
 }
