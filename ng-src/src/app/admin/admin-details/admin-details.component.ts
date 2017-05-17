@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { FormGroup, FormControl } from "@angular/forms";
+import { FormGroup, FormControl } from '@angular/forms';
 
-import { AdminService } from "../admin.service";
+import { AdminService } from '../admin.service';
 
 @Component({
   selector: 'app-admin-details',
@@ -62,8 +62,9 @@ export class AdminDetailsComponent implements OnInit, OnDestroy {
 
     this.adminService.updateSection(this._secId, resultsNew).subscribe(
       data => {
+        console.log(data);
         if (data.success) {
-          console.log('Section Updated! ' + result);
+          console.log('Section Updated!');
         }
       },
       err => {
@@ -73,30 +74,10 @@ export class AdminDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  // Upload Image Modal
-  uploadImageModal() {
-    console.log("Upload Modal Open");
-    this.adminService.isShowUploadModal = true;
-    this.isShowUploadModal = this.adminService.isShowUploadModal;
-  }
-
-
-  // Upload Image
-  uploadImage() {
-    console.log("Upload Image");
-  }
-
-  // Close Upload Modal
-  closeModal() {
-    console.log('Close modal');
-    this.isShowUploadModal = !this.isShowUploadModal;
-  }
-
-  // Remove Image
-  removeImage() {
-
+  // Remove Section Image
+  removeSectionImage() {
     let result = {
-      secImage: 'assets/img/default.jpg'
+      secImage: ''
     }
     let resultsNew = JSON.stringify(result);
 
@@ -111,6 +92,19 @@ export class AdminDetailsComponent implements OnInit, OnDestroy {
         return false;
       }
     );
+  }
+
+  // Open Media Modal
+  openMediaModal() {
+    console.log('Open Media Modal');
+    this.adminService.isShowUploadModal = true;
+    this.isShowUploadModal = this.adminService.isShowUploadModal;
+  }
+
+  // Close Media Modal
+  closeMediaModal() {
+    console.log('Close Media Modal');
+    this.isShowUploadModal = !this.isShowUploadModal;
   }
 
   ngOnDestroy() {
